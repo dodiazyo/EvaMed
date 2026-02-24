@@ -181,7 +181,7 @@ export default function AdminPage() {
                 </div>
                 <div className="field" style={{ gridColumn: "1 / -1" }}>
                   <label>Empresa</label>
-                  <input className="input" value={form.company} placeholder="SEGASA"
+                  <input className="input" value={form.company} placeholder="Mi Empresa S.A."
                     onChange={e => setForm(f => ({ ...f, company: e.target.value }))} />
                 </div>
               </div>
