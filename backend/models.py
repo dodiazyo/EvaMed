@@ -10,6 +10,7 @@ class Evaluation(Base):
     id = Column(Integer, primary_key=True, index=True)
     token = Column(String, unique=True, index=True, nullable=False)
     candidate_name = Column(String, nullable=False)
+    candidate_id = Column(String, nullable=True)   # cédula de identidad
     candidate_email = Column(String, nullable=True)
     candidate_phone = Column(String, nullable=True)
     position = Column(String, nullable=True)

@@ -7,6 +7,7 @@ from datetime import datetime
 
 class EvaluationCreate(BaseModel):
     candidate_name: str
+    candidate_id: Optional[str] = None       # cédula de identidad
     candidate_email: Optional[str] = None
     candidate_phone: Optional[str] = None
     position: Optional[str] = None
@@ -17,6 +18,7 @@ class EvaluationOut(BaseModel):
     id: int
     token: str
     candidate_name: str
+    candidate_id: Optional[str] = None
     candidate_email: Optional[str]
     candidate_phone: Optional[str]
     position: Optional[str]
@@ -33,6 +35,7 @@ class EvaluationSummary(BaseModel):
     id: int
     token: str
     candidate_name: str
+    candidate_id: Optional[str] = None
     candidate_email: Optional[str]
     position: Optional[str]
     company: Optional[str]
@@ -71,6 +74,7 @@ class AreaResult(BaseModel):
 class ResultOut(BaseModel):
     token: str
     candidate_name: str
+    candidate_id: Optional[str] = None
     position: Optional[str]
     company: Optional[str]
     completed_at: Optional[datetime]

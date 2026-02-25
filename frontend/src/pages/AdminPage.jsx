@@ -31,7 +31,7 @@ export default function AdminPage() {
   const [copied, setCopied] = useState(null);
 
   // Create form
-  const [form, setForm] = useState({ candidate_name: "", candidate_email: "", candidate_phone: "", position: "", company: "" });
+  const [form, setForm] = useState({ candidate_name: "", candidate_id: "", candidate_email: "", candidate_phone: "", position: "", company: "" });
   const [creating, setCreating] = useState(false);
   const [createdLink, setCreatedLink] = useState(null);
 
@@ -165,6 +165,11 @@ export default function AdminPage() {
                     onChange={e => setForm(f => ({ ...f, candidate_name: e.target.value }))} />
                 </div>
                 <div className="field">
+                  <label>Cédula de identidad</label>
+                  <input className="input" value={form.candidate_id} placeholder="0801-1990-12345"
+                    onChange={e => setForm(f => ({ ...f, candidate_id: e.target.value }))} />
+                </div>
+                <div className="field">
                   <label>Correo electrónico</label>
                   <input className="input" type="email" value={form.candidate_email} placeholder="juan@email.com"
                     onChange={e => setForm(f => ({ ...f, candidate_email: e.target.value }))} />
@@ -179,7 +184,7 @@ export default function AdminPage() {
                   <input className="input" value={form.position} placeholder="Oficial de Seguridad"
                     onChange={e => setForm(f => ({ ...f, position: e.target.value }))} />
                 </div>
-                <div className="field" style={{ gridColumn: "1 / -1" }}>
+                <div className="field">
                   <label>Empresa</label>
                   <input className="input" value={form.company} placeholder="Mi Empresa S.A."
                     onChange={e => setForm(f => ({ ...f, company: e.target.value }))} />
@@ -252,6 +257,7 @@ export default function AdminPage() {
                         <tr key={ev.id}>
                           <td>
                             <div style={{ fontWeight: 600, fontSize: 14 }}>{ev.candidate_name}</div>
+                            {ev.candidate_id && <div style={{ fontSize: 11, color: "var(--text3)", fontWeight: 600 }}>CI: {ev.candidate_id}</div>}
                             {ev.candidate_email && <div style={{ fontSize: 11, color: "var(--text4)" }}>{ev.candidate_email}</div>}
                           </td>
                           <td style={{ fontSize: 13, color: "var(--text3)" }}>

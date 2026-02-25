@@ -71,7 +71,11 @@ export default function EvalPage() {
       try {
         const result = await postAnswer(token, evalData.next_question.id, optionIndex);
         if (result.status === "completed") {
-          navigate(`/result/${token}`);
+          // Show thank-you screen — result is confidential (admin-only)
+          setEvalData(prev => ({
+            ...prev,
+            evaluation: { ...prev.evaluation, status: "completed" },
+          }));
           return;
         }
         // Animate transition
@@ -115,6 +119,37 @@ export default function EvalPage() {
 
   const { evaluation, answered, total, next_question: q } = evalData;
   const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
+
+  // Thank-you screen — shown after completing (result is confidential)
+  if (evaluation.status === "completed") {
+    return (
+      <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column", background: "var(--bg)" }}>
+        <div className="app-header">
+          <div className="logo">Eva<span>Med</span></div>
+        </div>
+        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "32px 20px" }}>
+          <div className="container">
+            <div className="card" style={{ padding: "40px 28px", textAlign: "center" }}>
+              <div style={{ fontSize: 64, marginBottom: 20 }}>✅</div>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: "var(--text1)", marginBottom: 12 }}>
+                ¡Evaluación completada!
+              </h1>
+              <p style={{ fontSize: 15, color: "var(--text2)", lineHeight: 1.7, marginBottom: 24 }}>
+                Gracias, <strong>{evaluation.candidate_name}</strong>. Tu evaluación ha sido registrada exitosamente.
+              </p>
+              <div style={{
+                background: "var(--bg)", borderRadius: 10, padding: "16px 20px",
+                fontSize: 13, color: "var(--text3)", lineHeight: 1.6,
+              }}>
+                🔒 Los resultados son <strong>confidenciales</strong> y serán revisados exclusivamente
+                por el equipo de Recursos Humanos. No es necesario que realices ninguna acción adicional.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Welcome screen (not started yet and no current question answered)
   if (!started && evaluation.status === "pending" && answered === 0) {

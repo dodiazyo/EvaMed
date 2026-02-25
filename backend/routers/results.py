@@ -31,6 +31,7 @@ async def get_result(token: str, db: AsyncSession = Depends(get_db)):
     return ResultOut(
         token=ev.token,
         candidate_name=ev.candidate_name,
+        candidate_id=ev.candidate_id,
         position=ev.position,
         company=ev.company,
         completed_at=ev.completed_at,

@@ -123,7 +123,7 @@ export default function ResultPage() {
     </div>
   );
 
-  const { candidate_name, position, company, overall_pct, verdict, verdict_color, areas } = result;
+  const { candidate_name, candidate_id, position, company, overall_pct, verdict, verdict_color, areas } = result;
   const vd = VERDICTS[verdict_color];
 
   // Radar data
@@ -177,11 +177,26 @@ export default function ResultPage() {
         </div>
 
         <div className="container print-container">
+          {/* Confidential notice — only visible on screen */}
+          <div className="no-print" style={{
+            display: "flex", alignItems: "center", gap: 10,
+            background: "#fef3c7", border: "1px solid #fcd34d",
+            borderRadius: 8, padding: "10px 16px", marginBottom: 16,
+            fontSize: 13, color: "#92400e",
+          }}>
+            🔒 <span><strong>Documento confidencial</strong> — Solo para uso interno de Recursos Humanos</span>
+          </div>
+
           {/* Candidate info + score */}
           <div className="card" style={{ padding: "28px 24px", textAlign: "center", marginBottom: 20 }}>
             <h2 style={{ fontSize: 20, fontWeight: 800, color: "var(--text1)", marginBottom: 4 }}>
               {candidate_name}
             </h2>
+            {candidate_id && (
+              <p style={{ color: "var(--text3)", fontSize: 13, marginBottom: 4 }}>
+                Cédula: <strong>{candidate_id}</strong>
+              </p>
+            )}
             {(position || company) && (
               <p style={{ color: "var(--text3)", fontSize: 13, marginBottom: 20 }}>
                 {position}{position && company ? " · " : ""}{company}
