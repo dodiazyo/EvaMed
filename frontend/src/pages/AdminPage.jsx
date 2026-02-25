@@ -9,7 +9,7 @@ const VERDICT_COLORS = {
   "NO APTO":              { color: "var(--danger)",   bg: "#fee2e2" },
 };
 
-const ROLE_LABELS = { admin: "Administrador completo", creator: "Solo creación" };
+const ROLE_LABELS = { admin: "Administrador completo", creator: "Solo creación", evaluator: "Evaluador (solo lectura)" };
 
 function copyToClipboard(text) {
   navigator.clipboard?.writeText(text).catch(() => {
@@ -243,7 +243,7 @@ export default function AdminPage() {
           <div style={{ fontSize: 11, opacity: .75, marginTop: 2 }}>
             {displayName}
             {" · "}
-            <span style={{ color: userRole === "admin" ? "#93c5fd" : "#86efac", fontWeight: 600 }}>
+            <span style={{ color: userRole === "admin" ? "#93c5fd" : userRole === "evaluator" ? "#fcd34d" : "#86efac", fontWeight: 600 }}>
               {ROLE_LABELS[userRole]}
             </span>
           </div>
@@ -289,8 +289,8 @@ export default function AdminPage() {
           {/* ── Evaluations tab ─────────────────────────────────────────── */}
           {tab === "evaluations" && (
             <>
-              {/* Create evaluation */}
-              <div className="card" style={{ padding: "24px", marginBottom: 24 }}>
+              {/* Create evaluation — hidden for evaluator role */}
+              {userRole !== "evaluator" && <div className="card" style={{ padding: "24px", marginBottom: 24 }}>
                 <h2 style={{ fontSize: 16, fontWeight: 800, marginBottom: 20, color: "var(--text1)" }}>
                   ➕ Nueva Evaluación
                 </h2>
@@ -353,7 +353,7 @@ export default function AdminPage() {
                     )}
                   </div>
                 </form>
-              </div>
+              </div>}
 
               {/* Evaluations table */}
               <div className="card" style={{ padding: 0, overflow: "hidden" }}>
@@ -380,9 +380,9 @@ export default function AdminPage() {
                           <th>Candidato</th>
                           <th>Cargo / Empresa</th>
                           <th>Estado</th>
-                          {userRole === "admin" && <th>Resultado</th>}
+                          {(userRole === "admin" || userRole === "evaluator") && <th>Resultado</th>}
                           <th>Fecha</th>
-                          <th>Acciones</th>
+                          {userRole !== "evaluator" && <th>Acciones</th>}
                         </tr>
                       </thead>
                       <tbody>
@@ -406,8 +406,8 @@ export default function AdminPage() {
                                   {STATUS_LABELS[ev.status]}
                                 </span>
                               </td>
-                              {/* Results column — only admin role */}
-                              {userRole === "admin" && (
+                              {/* Results column — admin and evaluator roles */}
+                              {(userRole === "admin" || userRole === "evaluator") && (
                                 <td>
                                   {ev.overall_pct != null ? (
                                     <div>
@@ -421,6 +421,15 @@ export default function AdminPage() {
                                           {ev.verdict}
                                         </span>
                                       )}
+                                      {userRole === "evaluator" && (
+                                        <div style={{ marginTop: 6 }}>
+                                          <a href={resultLink} target="_blank" rel="noreferrer"
+                                            className="btn btn-primary"
+                                            style={{ fontSize: 10, padding: "4px 8px" }}>
+                                            Ver reporte
+                                          </a>
+                                        </div>
+                                      )}
                                     </div>
                                   ) : (
                                     <span style={{ color: "var(--text4)", fontSize: 13 }}>—</span>
@@ -430,7 +439,7 @@ export default function AdminPage() {
                               <td style={{ fontSize: 12, color: "var(--text3)" }}>
                                 {new Date(ev.created_at).toLocaleDateString("es", { day: "2-digit", month: "short", year: "numeric" })}
                               </td>
-                              <td>
+                              {userRole !== "evaluator" && <td>
                                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                                   <button
                                     className="btn btn-ghost"
@@ -439,7 +448,7 @@ export default function AdminPage() {
                                   >
                                     {copied === `link-${ev.id}` ? "✓" : "📋"} Link
                                   </button>
-                                  {/* Ver resultado — only admin role */}
+                                  {/* Ver resultado — admin only in actions column */}
                                   {userRole === "admin" && ev.status === "completed" && (
                                     <a
                                       href={resultLink}
@@ -452,7 +461,7 @@ export default function AdminPage() {
                                     </a>
                                   )}
                                 </div>
-                              </td>
+                              </td>}
                             </tr>
                           );
                         })}
@@ -494,6 +503,7 @@ export default function AdminPage() {
                       <select className="input" value={userForm.role}
                         onChange={e => setUserForm(f => ({ ...f, role: e.target.value }))}>
                         <option value="creator">Solo creación (no ve resultados)</option>
+                        <option value="evaluator">Evaluador (ve resultados, solo lectura)</option>
                         <option value="admin">Administrador completo</option>
                       </select>
                     </div>
@@ -540,8 +550,8 @@ export default function AdminPage() {
                             <td>
                               <span style={{
                                 fontSize: 11, fontWeight: 700, padding: "3px 10px", borderRadius: 99,
-                                background: u.role === "admin" ? "#dbeafe" : "#dcfce7",
-                                color: u.role === "admin" ? "#1e40af" : "#166534",
+                                background: u.role === "admin" ? "#dbeafe" : u.role === "evaluator" ? "#fef9c3" : "#dcfce7",
+                                color: u.role === "admin" ? "#1e40af" : u.role === "evaluator" ? "#854d0e" : "#166534",
                               }}>
                                 {ROLE_LABELS[u.role]}
                               </span>

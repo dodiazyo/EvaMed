@@ -130,7 +130,7 @@ async def create_admin_user(request: Request, db: AsyncSession = Depends(get_db)
 
     if not username or not password:
         raise HTTPException(status_code=400, detail="Usuario y contraseña son requeridos")
-    if role not in ("admin", "creator"):
+    if role not in ("admin", "creator", "evaluator"):
         raise HTTPException(status_code=400, detail="Rol inválido")
 
     existing = await db.execute(select(AdminUser).where(AdminUser.username == username))
