@@ -4,6 +4,17 @@ from datetime import datetime, timezone
 from backend.database import Base
 
 
+class AdminUser(Base):
+    __tablename__ = "admin_users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    role = Column(String, nullable=False, default="creator")  # "admin" | "creator"
+    display_name = Column(String, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
 class Evaluation(Base):
     __tablename__ = "evaluations"
 
