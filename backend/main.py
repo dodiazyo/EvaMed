@@ -1,18 +1,48 @@
 import os
+import asyncio
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone, timedelta
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from sqlalchemy import delete
 
-from backend.database import init_db
+from backend.database import init_db, SessionLocal
+from backend.models import Evaluation
 from backend.routers import evaluations, responses, results
+
+# Incomplete evaluations older than this are auto-deleted
+EXPIRY_DAYS = int(os.environ.get("EVAL_EXPIRY_DAYS", "7"))
+
+
+async def cleanup_expired_evaluations():
+    """Delete incomplete evaluations older than EXPIRY_DAYS. Runs every 24 h."""
+    while True:
+        try:
+            cutoff = datetime.now(timezone.utc) - timedelta(days=EXPIRY_DAYS)
+            async with SessionLocal() as db:
+                result = await db.execute(
+                    delete(Evaluation).where(
+                        Evaluation.status != "completed",
+                        Evaluation.created_at < cutoff,
+                    )
+                )
+                deleted = result.rowcount
+                if deleted:
+                    print(f"[cleanup] Removed {deleted} expired incomplete evaluation(s).")
+                await db.commit()
+        except Exception as e:
+            print(f"[cleanup] Error: {e}")
+        await asyncio.sleep(86400)  # 24 hours
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await init_db()
+    task = asyncio.create_task(cleanup_expired_evaluations())
     yield
+    task.cancel()
 
 
 app = FastAPI(title="EvaMed API", lifespan=lifespan)
