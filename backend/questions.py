@@ -1,11 +1,11 @@
 """
-Banco de preguntas para evaluación psicológica de personal de seguridad.
+Banco de preguntas para evaluación psicológica general (aplicable a cualquier perfil laboral).
 
 Áreas y pesos:
-  personalidad  → 35%  (subdims: estabilidad, dominancia, consciencia, vigilancia, perfeccionismo, tension)
+  personalidad  → 35%  (subdims: estabilidad, dominancia, consciencia, atencion, perfeccionismo, tension)
   integridad    → 25%  (subdims: honestidad, resistencia, transparencia)
   emocional     → 20%  (subdims: control, empatia, estres)
-  aptitud       → 20%  (subdims: decision, autoridad, emergencia)
+  aptitud       → 20%  (subdims: decision, autoridad, resolucion)
 
 Opciones siempre 3: [De acuerdo / A veces o Depende / En desacuerdo]
 Puntuación: [2, 1, 0] o [0, 1, 2] si la pregunta está invertida.
@@ -19,7 +19,7 @@ AREAS = {
             "estabilidad":    "Estabilidad Emocional",
             "dominancia":     "Dominancia",
             "consciencia":    "Consciencia",
-            "vigilancia":     "Vigilancia",
+            "atencion":       "Atención y Concentración",
             "perfeccionismo": "Perfeccionismo",
             "tension":        "Manejo de Tensión",
         },
@@ -29,7 +29,7 @@ AREAS = {
         "weight": 0.25,
         "dimensions": {
             "honestidad":   "Honestidad",
-            "resistencia":  "Resistencia a Corrupción",
+            "resistencia":  "Resistencia a la Corrupción",
             "transparencia":"Transparencia",
         },
     },
@@ -43,12 +43,12 @@ AREAS = {
         },
     },
     "aptitud": {
-        "name": "Aptitud para Seguridad",
+        "name": "Aptitud Profesional",
         "weight": 0.20,
         "dimensions": {
-            "decision":    "Decisión bajo Presión",
-            "autoridad":   "Respeto a la Autoridad",
-            "emergencia":  "Reacción ante Emergencias",
+            "decision":   "Decisión bajo Presión",
+            "autoridad":  "Respeto a la Autoridad",
+            "resolucion": "Resolución de Problemas",
         },
     },
 }
@@ -107,7 +107,7 @@ QUESTIONS = [
     },
     {
         "id": 10, "area": "personalidad", "dimension": "dominancia",
-        "text": "Prefiero seguir instrucciones que dar órdenes.",
+        "text": "Prefiero seguir instrucciones que proponer ideas propias.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 0.8,
     },
     {
@@ -139,7 +139,7 @@ QUESTIONS = [
     },
     {
         "id": 16, "area": "personalidad", "dimension": "consciencia",
-        "text": "A veces postego obligaciones importantes por hacer cosas que me resultan más agradables.",
+        "text": "A veces postergo obligaciones importantes por hacer cosas que me resultan más agradables.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
@@ -158,30 +158,30 @@ QUESTIONS = [
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
 
-    # Vigilancia (5 preguntas)
+    # Atención y Concentración (5 preguntas)
     {
-        "id": 20, "area": "personalidad", "dimension": "vigilancia",
-        "text": "En el trabajo siempre estoy atento a situaciones que puedan representar un riesgo.",
+        "id": 20, "area": "personalidad", "dimension": "atencion",
+        "text": "Me concentro fácilmente en una tarea incluso cuando hay distracciones en el ambiente.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
-        "id": 21, "area": "personalidad", "dimension": "vigilancia",
-        "text": "Tiendo a confiar fácilmente en personas que no conozco bien.",
+        "id": 21, "area": "personalidad", "dimension": "atencion",
+        "text": "Con frecuencia me distraigo con facilidad cuando realizo tareas repetitivas o de atención sostenida.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
-        "id": 22, "area": "personalidad", "dimension": "vigilancia",
-        "text": "Me resulta sencillo notar cuando alguien actúa de forma sospechosa.",
+        "id": 22, "area": "personalidad", "dimension": "atencion",
+        "text": "Noto rápidamente cuando algo en mi entorno laboral está fuera de lo normal.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
-        "id": 23, "area": "personalidad", "dimension": "vigilancia",
-        "text": "En general soy una persona desconfiada cuando algo no cuadra.",
+        "id": 23, "area": "personalidad", "dimension": "atencion",
+        "text": "Me resulta sencillo mantener el foco durante períodos prolongados de trabajo.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 0.8,
     },
     {
-        "id": 24, "area": "personalidad", "dimension": "vigilancia",
-        "text": "Con frecuencia me distraigo fácilmente mientras realizo una tarea de vigilancia.",
+        "id": 24, "area": "personalidad", "dimension": "atencion",
+        "text": "Suelo pasar por alto detalles importantes cuando tengo varias tareas al mismo tiempo.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
 
@@ -230,7 +230,7 @@ QUESTIONS = [
     },
     {
         "id": 33, "area": "personalidad", "dimension": "tension",
-        "text": "Cuando recibo múltiples órdenes al mismo tiempo, me confundo fácilmente.",
+        "text": "Cuando recibo múltiples tareas al mismo tiempo, me confundo fácilmente.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
@@ -263,7 +263,7 @@ QUESTIONS = [
     },
     {
         "id": 39, "area": "integridad", "dimension": "honestidad",
-        "text": "Reporto situaciones irregulares inmediatamente, aunque implique problemas para otros.",
+        "text": "Informo situaciones irregulares de inmediato, aunque implique dificultades para otros.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -287,20 +287,20 @@ QUESTIONS = [
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
 
-    # Resistencia a corrupción (9 preguntas)
+    # Resistencia a la corrupción (9 preguntas)
     {
         "id": 44, "area": "integridad", "dimension": "resistencia",
-        "text": "Si alguien me ofreciera dinero por permitir el ingreso de una persona no autorizada, lo rechazaría sin dudar.",
+        "text": "Si alguien me ofreciera un beneficio personal para que omitiera una irregularidad, lo rechazaría sin dudar.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
         "id": 45, "area": "integridad", "dimension": "resistencia",
-        "text": "Bajo ninguna circunstancia permitiría que alguien me ofrezca algo a cambio de hacer la vista gorda.",
+        "text": "Bajo ninguna circunstancia aceptaría un trato especial a cambio de saltarme una norma.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
         "id": 46, "area": "integridad", "dimension": "resistencia",
-        "text": "Si un compañero me pide que lo encubra en algo incorrecto, me negaría aunque eso afecte nuestra relación.",
+        "text": "Si un compañero me pide que lo encubra en algo incorrecto, me negaría aunque afecte nuestra relación.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -320,12 +320,12 @@ QUESTIONS = [
     },
     {
         "id": 50, "area": "integridad", "dimension": "resistencia",
-        "text": "Creo que todo el mundo tiene su precio y que nadie es completamente incorruptible.",
+        "text": "Creo que todo el mundo tiene su precio y que nadie es completamente íntegro.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 0.8,
     },
     {
         "id": 51, "area": "integridad", "dimension": "resistencia",
-        "text": "Denunciaría a un superior si detectara que está involucrado en actos corruptos.",
+        "text": "Denunciaría a un superior si detectara que está involucrado en actos deshonestos.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -337,7 +337,7 @@ QUESTIONS = [
     # Transparencia (7 preguntas)
     {
         "id": 53, "area": "integridad", "dimension": "transparencia",
-        "text": "Siempre informo a mis superiores sobre todo lo relevante que ocurre en mi turno.",
+        "text": "Siempre informo a mis superiores sobre todo lo relevante que ocurre en mi jornada de trabajo.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -347,12 +347,12 @@ QUESTIONS = [
     },
     {
         "id": 55, "area": "integridad", "dimension": "transparencia",
-        "text": "Prefiero no mencionar ciertos incidentes para evitar problemas o papeleos.",
+        "text": "Prefiero no mencionar ciertos incidentes para evitar problemas o complicaciones innecesarias.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
         "id": 56, "area": "integridad", "dimension": "transparencia",
-        "text": "Llevo un registro mental o físico preciso de los eventos que ocurren en mi turno.",
+        "text": "Llevo un registro claro y preciso de las actividades y eventos relevantes de mi jornada.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -427,7 +427,7 @@ QUESTIONS = [
     },
     {
         "id": 70, "area": "emocional", "dimension": "empatia",
-        "text": "Cuando un cliente o usuario se queja, trato de entender su perspectiva antes de responder.",
+        "text": "Cuando alguien expresa una queja o inconformidad, trato de entender su perspectiva antes de responder.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -437,7 +437,7 @@ QUESTIONS = [
     },
     {
         "id": 72, "area": "emocional", "dimension": "empatia",
-        "text": "Soy hábil para resolver conflictos entre compañeros de trabajo.",
+        "text": "Soy hábil para ayudar a resolver conflictos entre compañeros de trabajo.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
 
@@ -454,7 +454,7 @@ QUESTIONS = [
     },
     {
         "id": 75, "area": "emocional", "dimension": "estres",
-        "text": "Puedo descansar mentalmente después de un turno intenso sin que me queden pensamientos negativos.",
+        "text": "Puedo descansar mentalmente después de una jornada intensa sin que me queden pensamientos negativos.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -473,31 +473,31 @@ QUESTIONS = [
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 0.9,
     },
 
-    # ─────────────── APTITUD PARA SEGURIDAD ─────────────────────────────────
+    # ─────────────── APTITUD PROFESIONAL ────────────────────────────────────
     # Decisión bajo presión (8 preguntas)
     {
         "id": 79, "area": "aptitud", "dimension": "decision",
-        "text": "En situaciones de emergencia, tomo decisiones rápidas y claras.",
+        "text": "En situaciones de urgencia, tomo decisiones rápidas y claras.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
         "id": 80, "area": "aptitud", "dimension": "decision",
-        "text": "Me paralizo cuando debo decidir rápido en una situación de riesgo.",
+        "text": "Me bloqueo cuando debo decidir rápido en una situación que no había anticipado.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
         "id": 81, "area": "aptitud", "dimension": "decision",
-        "text": "Prefiero esperar instrucciones antes de actuar por cuenta propia.",
+        "text": "Prefiero esperar instrucciones antes de tomar cualquier iniciativa propia.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 0.8,
     },
     {
         "id": 82, "area": "aptitud", "dimension": "decision",
-        "text": "He manejado situaciones de crisis antes y me sentí capaz de resolverlas.",
+        "text": "He manejado situaciones complicadas antes y me sentí capaz de resolverlas.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
         "id": 83, "area": "aptitud", "dimension": "decision",
-        "text": "Soy capaz de evaluar riesgos rápidamente y elegir la opción más segura.",
+        "text": "Soy capaz de evaluar las opciones disponibles rápidamente y elegir la más adecuada.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
@@ -507,7 +507,7 @@ QUESTIONS = [
     },
     {
         "id": 85, "area": "aptitud", "dimension": "decision",
-        "text": "Mis decisiones bajo presión suelen ser cuestionadas o incorrectas.",
+        "text": "Mis decisiones bajo presión suelen ser cuestionadas o resultan incorrectas.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
@@ -548,45 +548,45 @@ QUESTIONS = [
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 0.9,
     },
 
-    # Reacción ante emergencias (8 preguntas)
+    # Resolución de Problemas (8 preguntas)
     {
-        "id": 93, "area": "aptitud", "dimension": "emergencia",
-        "text": "Conozco y aplico protocolos básicos de actuación ante incidentes de seguridad.",
+        "id": 93, "area": "aptitud", "dimension": "resolucion",
+        "text": "Cuando surgen problemas inesperados en el trabajo, busco soluciones de forma ordenada y metódica.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
-        "id": 94, "area": "aptitud", "dimension": "emergencia",
-        "text": "Ante un intento de robo o agresión, actúo de forma proporcional y controlada.",
+        "id": 94, "area": "aptitud", "dimension": "resolucion",
+        "text": "Me bloqueo cuando debo encontrar una solución rápida a un problema que no había anticipado.",
+        "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
+    },
+    {
+        "id": 95, "area": "aptitud", "dimension": "resolucion",
+        "text": "Tengo facilidad para identificar la causa raíz de un problema antes de tomar acción.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
-        "id": 95, "area": "aptitud", "dimension": "emergencia",
-        "text": "Me costaría mucho confrontar físicamente a una persona si la situación lo requiriera.",
+        "id": 96, "area": "aptitud", "dimension": "resolucion",
+        "text": "Prefiero pedir ayuda de inmediato antes de intentar resolver un problema por mis propios medios.",
         "options": OPTIONS, "scores": [0, 1, 2], "weight": 0.8,
     },
     {
-        "id": 96, "area": "aptitud", "dimension": "emergencia",
-        "text": "Sé cómo actuar en caso de incendio, evacuación o emergencia médica básica.",
+        "id": 97, "area": "aptitud", "dimension": "resolucion",
+        "text": "He resuelto situaciones complicadas en el trabajo que inicialmente parecían no tener solución.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
-        "id": 97, "area": "aptitud", "dimension": "emergencia",
-        "text": "Comunico a las autoridades o superiores de inmediato cuando detecto un riesgo.",
+        "id": 98, "area": "aptitud", "dimension": "resolucion",
+        "text": "Cuando un proceso no funciona como debería, propongo alternativas o mejoras.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
     {
-        "id": 98, "area": "aptitud", "dimension": "emergencia",
-        "text": "Me han enseñado o he aprendido por mi cuenta sobre seguridad física y primeros auxilios.",
-        "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
+        "id": 99, "area": "aptitud", "dimension": "resolucion",
+        "text": "Me resulta difícil tomar decisiones cuando no cuento con toda la información necesaria.",
+        "options": OPTIONS, "scores": [0, 1, 2], "weight": 1.0,
     },
     {
-        "id": 99, "area": "aptitud", "dimension": "emergencia",
-        "text": "En situaciones de peligro real, soy de los que actúa en lugar de esperar.",
-        "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
-    },
-    {
-        "id": 100, "area": "aptitud", "dimension": "emergencia",
-        "text": "He experimentado situaciones de riesgo en trabajos anteriores y supe cómo manejarlas.",
+        "id": 100, "area": "aptitud", "dimension": "resolucion",
+        "text": "Adapto mis métodos de trabajo cuando las circunstancias cambian de forma imprevista.",
         "options": OPTIONS, "scores": [2, 1, 0], "weight": 1.0,
     },
 ]

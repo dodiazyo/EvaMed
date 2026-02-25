@@ -5,7 +5,7 @@ const AREA_LABELS = {
   personalidad: "Personalidad",
   integridad:   "Integridad",
   emocional:    "Inteligencia Emocional",
-  aptitud:      "Aptitud para Seguridad",
+  aptitud:      "Aptitud Profesional",
 };
 
 const AREA_ICONS = {
@@ -184,7 +184,7 @@ export default function EvalPage() {
 
               <p style={{ fontSize: 15, color: "var(--text2)", lineHeight: 1.7, marginBottom: 20 }}>
                 Esta evaluación consta de <strong>{total} preguntas</strong> que exploran aspectos
-                de tu personalidad, integridad, inteligencia emocional y aptitud para el trabajo de seguridad.
+                de tu personalidad, integridad, inteligencia emocional y aptitud profesional.
               </p>
 
               <div style={{ background: "var(--bg)", borderRadius: 10, padding: "16px 20px", marginBottom: 24, textAlign: "left" }}>
