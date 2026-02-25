@@ -91,6 +91,7 @@ function ScoreCircle({ pct, color }) {
 
 export default function ResultPage() {
   const { token } = useParams();
+  // token available for print footer
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -138,8 +139,8 @@ export default function ResultPage() {
 
   return (
     <div style={{ minHeight: "100dvh", background: "var(--bg)" }}>
-      {/* Header */}
-      <div className="app-header">
+      {/* Header — hidden in print */}
+      <div className="app-header no-print">
         <div style={{ flex: 1 }}>
           <div className="logo">Eva<span>Med</span></div>
           <div style={{ fontSize: 11, opacity: .75, marginTop: 2 }}>Resultado de Evaluación</div>
@@ -149,8 +150,33 @@ export default function ResultPage() {
         )}
       </div>
 
+      {/* Print-only header */}
+      <div className="print-only print-header">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "#1d4ed8" }}>EvaMed</div>
+            <div style={{ fontSize: 11, color: "#64748b" }}>Evaluación Psicológica para Personal de Seguridad</div>
+          </div>
+          <div style={{ textAlign: "right", fontSize: 12, color: "#64748b" }}>
+            <div>Fecha: {completedDate || new Date().toLocaleDateString("es")}</div>
+            <div>Documento de evidencia — Confidencial</div>
+          </div>
+        </div>
+      </div>
+
       <div style={{ padding: "24px 16px 60px" }}>
-        <div className="container">
+        {/* Print action button */}
+        <div className="container no-print" style={{ marginBottom: 16 }}>
+          <button
+            className="btn btn-primary"
+            onClick={() => window.print()}
+            style={{ gap: 8 }}
+          >
+            🖨️ Imprimir / Guardar PDF
+          </button>
+        </div>
+
+        <div className="container print-container">
           {/* Candidate info + score */}
           <div className="card" style={{ padding: "28px 24px", textAlign: "center", marginBottom: 20 }}>
             <h2 style={{ fontSize: 20, fontWeight: 800, color: "var(--text1)", marginBottom: 4 }}>
@@ -267,6 +293,12 @@ export default function ResultPage() {
           <p style={{ textAlign: "center", fontSize: 12, color: "var(--text4)", marginTop: 24 }}>
             Evaluación generada por EvaMed · {new Date().getFullYear()}
           </p>
+
+          {/* Print footer */}
+          <div className="print-only" style={{ marginTop: 32, borderTop: "1px solid #e2e8f0", paddingTop: 16, fontSize: 11, color: "#94a3b8", display: "flex", justifyContent: "space-between" }}>
+            <span>EvaMed — Plataforma de Evaluación Psicológica</span>
+            <span>Token: {token}</span>
+          </div>
         </div>
       </div>
     </div>

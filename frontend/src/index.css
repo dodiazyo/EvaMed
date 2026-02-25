@@ -491,3 +491,68 @@ tr:hover td { background: var(--bg); }
   .question-text { font-size: 16px; }
   .btn-lg { padding: 15px 24px; font-size: 15px; }
 }
+
+/* ── Print styles ────────────────────────────────────────────────── */
+.print-only { display: none; }
+
+@media print {
+  /* Force color rendering */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: #fff !important;
+    font-size: 12px;
+  }
+
+  /* Hide interactive elements */
+  .no-print { display: none !important; }
+
+  /* Show print-only elements */
+  .print-only { display: block !important; }
+
+  /* Print header */
+  .print-header {
+    padding: 16px 24px 12px;
+    border-bottom: 2px solid #1d4ed8;
+    margin-bottom: 20px;
+  }
+
+  /* Remove shadows and borders for cleaner print */
+  .card, .area-card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    break-inside: avoid;
+  }
+
+  /* Make container full-width */
+  .print-container {
+    max-width: 100% !important;
+    padding: 0 24px !important;
+  }
+
+  /* Area grid 2 columns, no break inside cards */
+  .area-grid {
+    grid-template-columns: 1fr 1fr !important;
+    break-inside: avoid;
+  }
+
+  /* Verdict badges keep their colors */
+  .verdict-green  { background: #dcfce7 !important; color: #16a34a !important; }
+  .verdict-yellow { background: #fef9c3 !important; color: #854d0e !important; }
+  .verdict-red    { background: #fee2e2 !important; color: #dc2626 !important; }
+
+  /* Area/progress bars keep color */
+  .area-bar-fill, .dim-mini-fill { print-color-adjust: exact !important; }
+
+  /* Page margins */
+  @page {
+    margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+    size: A4;
+  }
+
+  /* Avoid page breaks inside key blocks */
+  .area-card, .card { page-break-inside: avoid; }
+}
