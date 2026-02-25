@@ -41,6 +41,7 @@ export default function EvalPage() {
   const [evalData, setEvalData] = useState(null);  // { evaluation, answered, total, next_question }
   const [selected, setSelected] = useState(null);
   const [animating, setAnimating] = useState(false);
+  const [started, setStarted] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -116,7 +117,7 @@ export default function EvalPage() {
   const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
 
   // Welcome screen (not started yet and no current question answered)
-  if (evaluation.status === "pending" && answered === 0) {
+  if (!started && evaluation.status === "pending" && answered === 0) {
     return (
       <div style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
         <div className="app-header">
@@ -165,7 +166,7 @@ export default function EvalPage() {
                 ))}
               </div>
 
-              <button className="btn btn-primary btn-lg btn-full" onClick={load}>
+              <button className="btn btn-primary btn-lg btn-full" onClick={() => setStarted(true)}>
                 Comenzar evaluación →
               </button>
             </div>
